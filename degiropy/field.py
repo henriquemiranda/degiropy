@@ -4,7 +4,7 @@ class Field():
     
     @staticmethod
     def from_dict(json):
-        return Field(json['name'],json['value'])        
+        return Field(json.get('name'),json.get('value'))
 
     def __iter__(self):
         yield vars(self)

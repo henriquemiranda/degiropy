@@ -29,9 +29,8 @@ class Cash():
         data = json.loads(response.text)
 
         #start parsing
-        field = Field.from_dict(data['cashFunds'])
-
         cashFunds = []
+        field = Field.from_dict(data['cashFunds'])
         for item in field.cashFunds:
             field = Field.from_dict(item)
             cashFund = {}
@@ -44,7 +43,7 @@ class Cash():
     
     def write_cash(self,filename='cash.json'):
         with open(filename,'w') as f:
-            json.dump(self.data,f)
+            json.dump(self.json,f)
         
     def __str__(self):
         return tabulate(self.pandas,headers='keys', tablefmt='psql')

@@ -3,6 +3,7 @@ import requests
 from .config import Config
 from .credentials import credentials 
 from .cash import Cash
+from .portfolio import Portfolio
 
 class Session:
     def __init__(self, sessionid):
@@ -35,7 +36,8 @@ class Session:
         return self.cash
 
     def get_portfolio(self):
-        pass
+        self.portfolio = Portfolio.from_url(self)
+        return self.portfolio
 
     def get_portfolio_csv(self):
         csv_url = settings.portfolio_csv_url

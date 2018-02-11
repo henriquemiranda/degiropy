@@ -7,8 +7,14 @@ class LoginTest(unittest.TestCase):
         #login
         s = Session.login()
 
+        #cash
         s.get_cash()
         print(s.cash)
         
+        #portfolio
+        portfolio = s.get_portfolio()
+        portfolio.write_portfolio()
+        print(portfolio)
+
 if __name__ == "__main__":
     unittest.main()
