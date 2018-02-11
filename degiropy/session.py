@@ -2,12 +2,14 @@ import json
 import requests
 from .config import Config
 from .credentials import credentials 
+from .cash import Cash
 
 class Session:
     def __init__(self, sessionid):
         self.sessionid = sessionid
         self.config = self.get_config()
         self.accountid = self.get_account_id()
+        self.cash = None
 
     @staticmethod
     def login():
@@ -27,6 +29,13 @@ class Session:
 
     def get_config(self):
         return Config.from_url(self.sessionid)
+
+    def get_cash(self):
+        self.cash = Cash.from_url(self)
+        return self.cash
+
+    def get_portfolio(self):
+        pass
 
     def get_portfolio_csv(self):
         csv_url = settings.portfolio_csv_url

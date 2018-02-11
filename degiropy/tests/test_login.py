@@ -7,5 +7,8 @@ class LoginTest(unittest.TestCase):
         #login
         s = Session.login()
 
+        s.get_cash()
+        print(s.cash)
+        
 if __name__ == "__main__":
     unittest.main()
