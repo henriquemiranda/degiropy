@@ -9,7 +9,18 @@ class Portfolio:
     def __init__(self,session,products):
         self.session = session
         self._products = products
-        self.pandas = pd.DataFrame(self.portfolio)
+        print('get product names')
+        self.get_product_names()
+        print('done')       
+ 
+        #create pandas dataframe
+        print('pandas shit')
+        pandas = pd.DataFrame(self.portfolio)
+        pandas = pandas.assign(profit=(pandas.plBase + pandas.value))
+        pandas = pandas.assign(todayProfit=(pandas.todayPlBase + pandas.value))
+
+        print('done')
+        self.pandas = pandas
 
     @staticmethod
     def from_url(session):
@@ -28,19 +39,27 @@ class Portfolio:
         for item in field.portfolio:
             product = Product.from_dict(item)
             products.append(product)
-
+ 
         return Portfolio(session,products)
 
-    def get_product_by_ids(ids):
+    def get_product_names(self):
         session = self.session
-        dict_url = {'productSearchUrl':session.config.productSearchUrl,
-                    'account':session.accountid,
-                    'sessionid':session.sessionid}
-        product_url = '{productSearchUrl}v5/products/info?intAccount={account}&sessionId={sessionid}'.format(**dict_url)
-        data = list(map(str,ids))
-        response = requests.post(product_url, json=data)
-        print(response.text)
+        ids = self.ids
+        product_names = Product.from_ids(session,ids)
+ 
+        for product in self._products:
+            id = product.id
+            product_name = product_names[str(id)]
+            for key,item in product_name.items():
+                setattr(product, key, item)
 
+    @property
+    def ids(self):
+        ids = []
+        for product in self._products:
+            ids.append(product.id)
+        return ids
+        
     @property
     def portfolio(self):
         portfolio = []
@@ -53,5 +72,6 @@ class Portfolio:
             json.dump(self.portfolio,f)
 
     def __str__(self):
-        return tabulate(self.pandas,headers='keys', tablefmt='psql')
+        return tabulate(self.pandas[['name','price','currency','size','closePrice','value','profit','todayProfit']],headers='keys', tablefmt='psql')
+
 

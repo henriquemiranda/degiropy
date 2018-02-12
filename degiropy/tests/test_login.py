@@ -6,6 +6,7 @@ class LoginTest(unittest.TestCase):
     def test_login(self):
         #login
         s = Session.login()
+        print(s.config)
 
         #cash
         s.get_cash()
@@ -13,7 +14,6 @@ class LoginTest(unittest.TestCase):
         
         #portfolio
         portfolio = s.get_portfolio()
-        portfolio.write_portfolio()
         print(portfolio)
 
 if __name__ == "__main__":
