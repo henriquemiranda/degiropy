@@ -9,17 +9,14 @@ class Portfolio:
     def __init__(self,session,products):
         self.session = session
         self._products = products
-        print('get product names')
         self.get_product_names()
-        print('done')       
  
         #create pandas dataframe
-        print('pandas shit')
         pandas = pd.DataFrame(self.portfolio)
-        pandas = pandas.assign(profit=(pandas.plBase + pandas.value))
-        pandas = pandas.assign(todayProfit=(pandas.todayPlBase + pandas.value))
+        pandas['profit'] = pandas.plBase + pandas.value
+        pandas['todayProfit'] = pandas.todayPlBase + pandas.value
+        pandas.append(pandas.sum(numeric_only=True), ignore_index=True)
 
-        print('done')
         self.pandas = pandas
 
     @staticmethod
