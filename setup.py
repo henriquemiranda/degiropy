@@ -9,4 +9,5 @@ if __name__ == '__main__':
           author='Henrique Miranda',
           author_email='miranda.henrique@gmail.com',
           packages=packages_degiropy,
+          scripts=['scripts/degiro'],
           )

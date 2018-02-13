@@ -14,5 +14,5 @@ The objectives of this package are:
 
 This package is based on:
 
-https://github.com/Sjord/get-rich-slowly
-https://github.com/pladaria/degiro
+    - https://github.com/Sjord/get-rich-slowly
+    - https://github.com/pladaria/degiro
