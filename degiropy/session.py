@@ -26,7 +26,7 @@ class Session:
     def get_account_id(self):
         response = requests.get(self.config.paUrl + 'client?sessionId=%s' % self.sessionid)
         result = response.json()
-        return result['intAccount']
+        return result['data']['intAccount']
 
     def get_config(self):
         return Config.from_url(self.sessionid)
